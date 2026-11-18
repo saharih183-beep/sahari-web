@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="id" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLBB Masterclass - Panduan Hero, Strategi & Build Item</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Rajdhani & Inter untuk nuansa Esports Gaming -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        gaming: ['Rajdhani', 'sans-serif'],
+                    },
+                    colors: {
+                        mlbb: {
+                            dark: '#090d16',
+                            card: '#111827',
+                            gold: '#f5b041',
+                            goldLight: '#fde08d',
+                            goldDark: '#b7791f',
+                            blue: '#00d2ff',
+                            purple: '#9d4edd',
+                            crimson: '#ef4444',
+                            emerald: '#10b981'
+                        }
+                    },
+                    animation: {
+                        'float': 'float 4s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 3s infinite',
+                        'shimmer': 'shimmer 2.5s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 15px rgba(245, 176, 65, 0.3)' },
+                            '50%': { boxShadow: '0 0 30px rgba(0, 210, 255, 0.6)' },
+                        },
+                        shimmer: {
+                            '0%': { transform: 'translateX(-100%)' },
+                            '100%': { transform: 'translateX(100%)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styling untuk efek bingkai rarity & scrollbar ala MLBB */
+        body {
+            background-color: #090d16;
+            color: #f3f4f6;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(0, 210, 255, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 30%, rgba(157, 78, 221, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 50% 85%, rgba(245, 176, 65, 0.06) 0%, transparent 50%);
+            overflow-x: hidden;
+        }
+
+        /* MLBB Gold Frame Border */
+        .mlbb-frame {
+            position: relative;
+            background: linear-gradient(145deg, #161f33 0%, #0d1320 100%);
+            border: 1px solid rgba(245, 176, 65, 0.35);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(245, 176, 65, 0.05);
+            transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .mlbb-frame:hover {
+            border-color: #f5b041;
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 15px 35px -5px rgba(245, 176, 65, 0.25), 0 0 15px rgba(0, 210, 255, 0.2);
+        }
+
+        /* Sudut berlian khas UI Mobile Legends */
+        .mlbb-corner::before, .mlbb-corner::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border: 2px solid #f5b041;
+            transition: all 0.3s ease;
+        }
+        .mlbb-corner::before {
+            top: -1px;
+            left: -1px;
+            border-right: none;
+            border-bottom: none;
+        }
+        .mlbb-corner::after {
+            bottom: -1px;
+            right: -1px;
+            border-left: none;
+            border-top: none;
+        }
+
+        /* Efek Kilau pada Ikon Item */
+        .item-icon-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 50%;
+            background: radial-gradient(circle, #28354f 0%, #0f172a 100%);
+            border: 2px solid #f5b041;
+            box-shadow: 0 0 15px rgba(245, 176, 65, 0.4), inset 0 0 10px rgba(0,0,0,0.8);
+        }
+
+        .item-icon-wrapper::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.28) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg) translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .group:hover .item-icon-wrapper::after {
+            transform: rotate(30deg) translateX(100%);
+        }
+
+        /* Animasi Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #090d16;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #f5b041, #b7791f);
+            border-radius: 9999px;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-mlbb-gold selection:text-mlbb-dark">
+
+    <!-- Navbar Sticky -->
+    <nav class="sticky top-0 z-40 backdrop-blur-md bg-[#090d16]/85 border-b border-mlbb-gold/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-mlbb-gold to-amber-700 p-0.5 shadow-lg shadow-mlbb-gold/20 group-hover:scale-105 transition">
+                        <div class="w-full h-full bg-mlbb-dark rounded-[10px] flex items-center justify-center">
+                            <svg class="w-6 h-6 text-mlbb-gold" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm0 4.5l4 3.5-4 7.5-4-7.5 4-3.5z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="font-gaming font-extrabold text-xl tracking-wider bg-gradient-to-r from-mlbb-goldLight via-mlbb-gold to-amber-500 bg-clip-text text-transparent">
+                            LAND OF DAWN
+                        </span>
+                        <span class="block text-[10px] tracking-[0.25em] text-mlbb-blue uppercase font-semibold -mt-1">
+                            Academy & Itempedia
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-1">
+                    <a href="#hero-roles" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-mlbb-gold hover:bg-white/5 transition">1. Role & Cara Main</a>
+                    <a href="#item-guide" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-mlbb-gold hover:bg-white/5 transition">2. Fungsi Item</a>
+                    <a href="#counter-sim" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-mlbb-gold hover:bg-white/5 transition">3. Simulasi Counter</a>
+                    <a href="#build-recs" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-mlbb-gold hover:bg-white/5 transition">4. Rekomendasi Build</a>
+                </div>
+
+                <!-- Mobile Quick Button -->
+                <a href="#counter-sim" class="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-mlbb-gold to-amber-600 text-mlbb-dark font-gaming font-bold text-sm tracking-wide shadow-md hover:brightness-110 transition">
+                    Cek Counter
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Banner Section -->
+    <header class="relative pt-12 pb-20 lg:pt-20 lg:pb-28 overflow-hidden border-b border-white/5">
+        <!-- Dekorasi Cahaya Latar -->
+        <div class="absolute top-10 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-mlbb-blue/10 blur-[120px] rounded-full pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Kolom Teks Artikel Utama -->
+                <div class="lg:col-span-7 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-mlbb-gold/10 border border-mlbb-gold/30 text-mlbb-gold text-xs font-semibold tracking-wider uppercase mb-6">
+                        <span class="w-2 h-2 rounded-full bg-mlbb-gold animate-ping"></span>
+                        Panduan Lengkap Push Rank Mythical Glory
+                    </div>
+                    
+                    <h1 class="font-gaming font-extrabold text-4xl sm:text-5xl lg:text-6xl leading-tight tracking-tight text-white mb-6">
+                        Kuasai Mekanik Hero, 
+                        <span class="bg-gradient-to-r from-mlbb-goldLight via-mlbb-gold to-amber-500 bg-clip-text text-transparent">
+                            Penggunaan Item
+                        </span> &amp; Strategi Build MLBB
+                    </h1>
+                    
+                    <p class="text-gray-300 text-base sm:text-lg leading-relaxed mb-8 max-w-2xl mx-auto lg:mx-0">
+                        Menang di <strong>Mobile Legends: Bang Bang</strong> bukan cuma soal adu cepat jari atau banyaknya <em>kill</em>. Pemahaman makro tiap <strong>Role Hero</strong> serta kejelian membeli <strong>Item Counter</strong> sesuai kondisi lawan adalah kunci utama membalikkan keadaan (<em>comeback</em>).
+                    </p>
+
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4">
+                        <a href="#hero-roles" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-mlbb-gold via-amber-500 to-amber-600 text-mlbb-dark font-gaming font-extrabold text-base tracking-wider uppercase shadow-lg shadow-mlbb-gold/25 hover:scale-105 transition">
+                            Mulai Baca Panduan
+                        </a>
+                        <a href="#item-guide" class="px-6 py-3.5 rounded-xl bg-white/5 border border-mlbb-blue/40 text-mlbb-blue font-gaming font-bold text-base tracking-wider uppercase hover:bg-mlbb-blue/10 transition">
+                            Ensiklopedia Item
+                        </a>
+                    </div>
+
+                    <!-- Statistik Ringkas Artikel -->
+                    <div class="grid grid-cols-3 gap-4 mt-10 pt-8 border-t border-white/10 max-w-lg mx-auto lg:mx-0">
+                        <div>
+                            <div class="font-gaming font-bold text-2xl sm:text-3xl text-mlbb-gold">6 Role</div>
+                            <div class="text-xs text-gray-400">Tugas &amp; Rotasi</div>
+                        </div>
+                        <div>
+                            <div class="font-gaming font-bold text-2xl sm:text-3xl text-mlbb-blue">12+ Item</div>
+                            <div class="text-xs text-gray-400">Ikon &amp; Pasif Unik</div>
+                        </div>
+                        <div>
+                            <div class="font-gaming font-bold text-2xl sm:text-3xl text-purple-400">Interaktif</div>
+                            <div class="text-xs text-gray-400">Simulasi Counter</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kolom Visual Showcase Item & Emblem Mengambang -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="relative w-full max-w-md aspect-square flex items-center justify-center">
+                        <!-- Lingkaran Sihir / Arena Lobi -->
+                        <div class="absolute inset-4 rounded-full border-2 border-dashed border-mlbb-gold/30 animate-[spin_30s_linear_infinite]"></div>
+                        <div class="absolute inset-12 rounded-full border border-mlbb-blue/30 animate-[spin_20s_linear_infinite_reverse]"></div>
+                        
+                        <!-- Kartu Pusat Showcase -->
+                        <div class="relative z-10 mlbb-frame mlbb-corner rounded-2xl p-6 w-72 sm:w-80 text-center animate-float">
+                            <div class="text-xs font-gaming uppercase tracking-widest text-mlbb-blue mb-2">Core Equipment Showcase</div>
+                            <div class="w-24 h-24 mx-auto my-3 item-icon-wrapper flex items-center justify-center p-2" id="hero-showcase-icon">
+                                <!-- Diisi otomatis oleh SVG Blade of Despair -->
+                            </div>
+                            <h3 class="font-gaming font-bold text-2xl text-mlbb-gold" id="hero-showcase-title">Blade of Despair</h3>
+                            <p class="text-xs text-emerald-400 font-semibold mt-1" id="hero-showcase-stat">+160 Physical Attack • +5% Movement SPD</p>
+                            <p class="text-xs text-gray-400 mt-3 leading-relaxed" id="hero-showcase-desc">
+                                Senjata pamungkas Physical dengan damage tertinggi untuk menghabisi musuh yang sekarat.
+                            </p>
+                            <div class="mt-4 flex justify-center gap-1.5" id="showcase-dots"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- BAGIAN 1: PANDUAN ROLE & CARA BERMAIN HERO -->
+    <section id="hero-roles" class="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-12 reveal">
+            <span class="text-mlbb-blue font-gaming font-bold tracking-widest uppercase text-sm">Bab 01 • Makro &amp; Mekanik Dasar</span>
+            <h2 class="font-gaming font-extrabold text-3xl sm:text-4xl text-white mt-2 mb-4">
+                Pemahaman Role &amp; Cara Bermain Hero
+            </h2>
+            <p class="text-gray-400 text-sm sm:text-base">
+                Setiap hero di Land of Dawn memiliki tugas spesifik berdasarkan <em>Lane</em> dan <em>Role</em>. Klik pada kartu hero di bawah untuk melihat panduan cara bermain, posisi saat <em>war</em>, dan kesalahan pemula yang wajib dihindari.
+            </p>
+        </div>
+
+        <!-- Filter Tab Role -->
+        <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10 reveal" id="role-filters">
+            <button onclick="filterRoles('ALL')" class="role-btn active px-4 py-2.5 rounded-xl font-gaming font-bold text-sm tracking-wider uppercase bg-mlbb-gold text-mlbb-dark shadow-md transition">
+                Semua Role (6)
+            </button>
+            <button onclick="filterRoles('Tank')" class="role-btn px-4 py-2.5 rounded-xl font-gaming font-bold text-sm tracking-wider uppercase bg-white/5 text-gray-300 border border-white/10 hover:border-mlbb-gold/50 transition">
+                🛡️ Tank
+            </button>
+            <button onclick="filterRoles('Fighter')" class="role-btn px-4 py-2.5 rounded-xl font-gaming font-bold text-sm tracking-wider uppercase bg-white/5 text-gray-300 border border-white/10 hover:border-mlbb-gold/50 transition">
+                ⚔️ Fighter
+            </button>
+            <button onclick="filterRoles('Assassin')" class="role-btn px-4 py-2.5 rounded-xl font-gaming font-bold text-sm tracking-wider uppercase bg-white/5 text-gray-300 border border-white/10 hover:border-mlbb-gold/50 transition">
+                🗡️ Assassin
+            </button>
+            <button onclick="filterRoles('Mage')" class="role-btn px-4 py-2.5 rounded-xl font-gaming font-bold text-sm tracking-wider uppercase bg-white/5 text-gray-300 border border-white/10 hover:border-mlbb-gold/50 transition">
+                🔮 Mage
+            </button>
+            <button onclick="filterRoles('Marksman')" class="role-btn px-4 py-2.5 rounded-xl font-gaming font-bold text-sm tracking-wider uppercase bg-white/5 text-gray-300 border border-white/10 hover:border-mlbb-gold/50 transition">
+                🏹 Marksman
+            </button>
+            <button onclick="filterRoles('Support')" class="role-btn px-4 py-2.5 rounded-xl font-gaming font-bold text-sm tracking-wider uppercase bg-white/5 text-gray-300 border border-white/10 hover:border-mlbb-gold/50 transition">
+                ✨ Support
+            </button>
+        </div>
+
+        <!-- Grid Kartu Hero -->
+        <div id="heroes-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Kartu hero di-render via JavaScript -->
+        </div>
+    </section>
+
+    <!-- BAGIAN 2: PENGGUNAAN ITEM YANG BENAR (ITEMPEDIA) -->
+    <section id="item-guide" class="py-16 sm:py-24 bg-[#0c121e]/80 border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10 reveal">
+                <span class="text-mlbb-gold font-gaming font-bold tracking-widest uppercase text-sm">Bab 02 • Strategi Equipment</span>
+                <h2 class="font-gaming font-extrabold text-3xl sm:text-4xl text-white mt-2 mb-4">
+                    Cara Penggunaan Item yang Benar &amp; Pasif Unik
+                </h2>
+                <p class="text-gray-400 text-sm sm:text-base">
+                    Jangan asal mengikuti <em>Pro Build</em> secara buta! Pahami kapan harus membeli item <strong>Penetration</strong>, <strong>Anti-Heal</strong>, maupun <strong>Defense</strong>. Klik ikon item di bawah untuk detail pasif &amp; momen pembelian terbaik.
+                </p>
+            </div>
+
+            <!-- Aturan Emas Membeli Item (Artikel Singkat) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12 reveal">
+                <div class="p-5 rounded-2xl bg-gradient-to-br from-blue-950/50 to-slate-900 border border-mlbb-blue/30">
+                    <div class="text-mlbb-blue font-gaming font-bold text-lg mb-1">1. Beli Sepatu (Movement) Dulu</div>
+                    <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                        Selalu selesaikan sepatu di awal game sesuai musuh di lane. Lawan banyak <em>Crowd Control</em> (stun)? Pakai <strong>Tough Boots</strong>. Lawan fisik sakit? Pakai <strong>Warrior Boots</strong>.
+                    </p>
+                </div>
+                <div class="p-5 rounded-2xl bg-gradient-to-br from-amber-950/40 to-slate-900 border border-mlbb-gold/30">
+                    <div class="text-mlbb-gold font-gaming font-bold text-lg mb-1">2. Wajib Anti-Heal di Mid Game</div>
+                    <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                        Jika musuh memakai hero regen deras (Estes, Uranus, Yu Zhong, Alucard), wajib beli <strong>Dominance Ice</strong> (Tank/Fighter), <strong>Sea Halberd</strong> (Physical), atau <strong>Glowing Wand</strong> (Mage).
+                    </p>
+                </div>
+                <div class="p-5 rounded-2xl bg-gradient-to-br from-purple-950/40 to-slate-900 border border-purple-500/30">
+                    <div class="text-purple-400 font-gaming font-bold text-lg mb-1">3. Penetration Saat Tank Jadi</div>
+                    <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                        Memasuki menit ke-10 ke atas saat Tank musuh sudah membeli armor tebal, wajib beli <strong>Malefic Roar</strong> (Physical) atau <strong>Divine Glaive</strong> (Magic) agar damage tetap tembus.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Filter Kategori Item -->
+            <div class="flex flex-wrap justify-center gap-2 mb-8 reveal" id="item-filters">
+                <button onclick="filterItems('ALL')" class="item-btn active px-4 py-2 rounded-xl font-gaming font-bold text-sm uppercase bg-mlbb-blue text-mlbb-dark shadow transition">
+                    Semua Item
+                </button>
+                <button onclick="filterItems('Attack')" class="item-btn px-4 py-2 rounded-xl font-gaming font-bold text-sm uppercase bg-white/5 text-gray-300 border border-white/10 hover:border-red-400 transition">
+                    ⚔️ Attack (Physical)
+                </button>
+                <button onclick="filterItems('Magic')" class="item-btn px-4 py-2 rounded-xl font-gaming font-bold text-sm uppercase bg-white/5 text-gray-300 border border-white/10 hover:border-purple-400 transition">
+                    🔮 Magic
+                </button>
+                <button onclick="filterItems('Defense')" class="item-btn px-4 py-2 rounded-xl font-gaming font-bold text-sm uppercase bg-white/5 text-gray-300 border border-white/10 hover:border-amber-400 transition">
+                    🛡️ Defense
+                </button>
+                <button onclick="filterItems('Movement')" class="item-btn px-4 py-2 rounded-xl font-gaming font-bold text-sm uppercase bg-white/5 text-gray-300 border border-white/10 hover:border-emerald-400 transition">
+                    👢 Movement &amp; Roam
+                </button>
+            </div>
+
+            <!-- Grid Kartu Item MLBB -->
+            <div id="items-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+                <!-- Di-render otomatis via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- BAGIAN 3: SIMULATOR INTERAKTIF COUNTER ITEM -->
+    <section id="counter-sim" class="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mlbb-frame mlbb-corner rounded-3xl p-6 sm:p-10 reveal">
+            <div class="text-center max-w-2xl mx-auto mb-8">
+                <span class="px-3 py-1 rounded-full bg-mlbb-blue/15 text-mlbb-blue font-gaming font-bold text-xs uppercase tracking-widest">
+                    Fitur Interaktif • Smart Counter Picker
+                </span>
+                <h2 class="font-gaming font-extrabold text-3xl sm:text-4xl text-white mt-3 mb-2">
+                    Bingung Beli Item Apa? Pilih Kondisi Musuh!
+                </h2>
+                <p class="text-gray-400 text-sm">
+                    Klik salah satu situasi yang sedang kamu hadapi di pertandingan untuk mendapatkan rekomendasi item counter paling efektif beserta alasannya.
+                </p>
+            </div>
+
+            <!-- Tombol Kondisi Pertandingan -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-8" id="scenario-buttons">
+                <button onclick="selectScenario('regen')" data-scen="regen" class="scen-btn active p-4 rounded-xl border border-mlbb-gold bg-mlbb-gold/15 text-left transition">
+                    <div class="font-gaming font-bold text-base text-mlbb-gold">🩸 Musuh Deras Regen / Lifesteal</div>
+                    <div class="text-xs text-gray-300 mt-1">Contoh: Estes, Alucard, Yu Zhong, Ruby, Esmeralda</div>
+                </button>
+                <button onclick="selectScenario('burst_magic')" data-scen="burst_magic" class="scen-btn p-4 rounded-xl border border-white/10 bg-white/5 hover:border-purple-400/50 text-left transition">
+                    <div class="font-gaming font-bold text-base text-purple-300">⚡ Musuh Full Burst Magic</div>
+                    <div class="text-xs text-gray-400 mt-1">Contoh: Eudora, Kagura, Vale, Kadita, Lunox</div>
+                </button>
+                <button onclick="selectScenario('tank_tebal')" data-scen="tank_tebal" class="scen-btn p-4 rounded-xl border border-white/10 bg-white/5 hover:border-red-400/50 text-left transition">
+                    <div class="font-gaming font-bold text-base text-red-300">🛡️ Musuh Tank &amp; Fighter Tebal</div>
+                    <div class="text-xs text-gray-400 mt-1">Contoh: Tigreal, Fredrinn, Hylos, Terizla</div>
+                </button>
+                <button onclick="selectScenario('assassin_crit')" data-scen="assassin_crit" class="scen-btn p-4 rounded-xl border border-white/10 bg-white/5 hover:border-emerald-400/50 text-left transition">
+                    <div class="font-gaming font-bold text-base text-emerald-300">🗡️ Diincar Assassin / MM Sakit</div>
+                    <div class="text-xs text-gray-400 mt-1">Contoh: Ling, Lancelot, Hayabusa, Miya, Lesley</div>
+                </button>
+            </div>
+
+            <!-- Output Hasil Rekomendasi Counter -->
+            <div id="scenario-result" class="bg-[#090d16]/90 rounded-2xl p-6 border border-white/10">
+                <!-- Diisi otomatis via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- BAGIAN 4: REKOMENDASI BUILD ITEM COCOK PER TIPE HERO -->
+    <section id="build-recs" class="py-16 sm:py-24 bg-[#0c121e]/80 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12 reveal">
+                <span class="text-purple-400 font-gaming font-bold tracking-widest uppercase text-sm">Bab 03 • Susunan 6 Slot Equipment</span>
+                <h2 class="font-gaming font-extrabold text-3xl sm:text-4xl text-white mt-2 mb-4">
+                    Rekomendasi Susunan Build Item Terbaik
+                </h2>
+                <p class="text-gray-400 text-sm sm:text-base">
+                    Berikut adalah susunan 6 slot item paling optimal sesuai gaya bermain hero kamu. Klik pada ikon item mana saja di dalam susunan build untuk memeriksa statistik detailnya.
+                </p>
+            </div>
+
+            <div id="builds-container" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Di-render via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 border-t border-white/10 text-center text-gray-400 text-sm">
+        <div class="max-w-7xl mx-auto px-4">
+            <p class="font-gaming font-bold text-lg text-mlbb-gold tracking-wider">LAND OF DAWN ACADEMY</p>
+            <p class="text-xs text-gray-500 mt-1 max-w-xl mx-auto">
+                Panduan edukasi strategi &amp; mekanik bermain Mobile Legends: Bang Bang. Ilustrasi vektor item dan hero dibuat khusus sebagai referensi visual bagi para pemain.
+            </p>
+        </div>
+    </footer>
+
+    <!-- MODAL POP-UP DETAIL HERO / ITEM -->
+    <div id="detail-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm transition-opacity">
+        <div class="mlbb-frame mlbb-corner rounded-2xl max-w-lg w-full p-6 sm:p-7 relative transform transition-all scale-95 opacity-0" id="modal-box">
+            <button onclick="closeModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 hover:bg-red-500/80 text-white flex items-center justify-center transition">
+                ✕
+            </button>
+            <div id="modal-content">
+                <!-- Konten dinamis -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT DATA & INTERAKTIVITAS -->
+    <script>
+        // =========================================================================
+        // 1. KOLEKSI ILUSTRASI VEKTOR SVG DETAIL (MENYERUPAI IKON ASLI MLBB)
+        // =========================================================================
+        const SVG_ICONS = {
+            // --- ITEM SVG ---
+            bod: `
+                <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-[0_0_8px_rgba(16,185,129,0.8)]">
+                    <defs>
+                        <linearGradient id="bodBlade" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#a7f3d0"/>
+                            <stop offset="45%" stop-color="#10b981"/>
+                            <stop offset="100%" stop-color="#065f46"/>
+                        </linearGradient>
+                        <linearGradient id="bodGold" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#fde047"/>
+                            <stop offset="100%" stop-color="#b45309"/>
+                        </linearGradient>
+                    </defs>
+                    <!-- Aura Sayap Hijau -->
+                    <path d="M20 65 Q10 40 35 30 L45 45 Z" fill="#059669" opacity="0.6"/>
+                    <path d="M80 65 Q90 40 65 30 L55 45 Z" fill="#059669" opacity="0.6"/>
+                    <!-- Bilah Pedang Raksasa -->
+                    <polygon points="50,8 64,28 60,68 40,68 36,28" fill="url(#bodBlade)" stroke="#ecfdf5" stroke-width="1.5"/>
+                    <line x1="50" y1="12" x2="50" y2="66" stroke="#d1fae5" stroke-width="2.5"/>
+                    <!-- Pelindung Gagang (Crossguard) Emas -->
+                    <path d="M26 66 L50 60 L74 66 L68 74 L50 70 L32 74 Z" fill="url(#bodGold)" stroke="#fef08a" stroke-width="1"/>
+                    <circle cx="50" cy="67" r="4" fill="#10b981" stroke="#fff" stroke-width="1"/>
+                    <!-- Gagang & Pommel -->
+                    <rect x="46" y="72" width="8" height="14" rx="2" fill="#78350f"/>
+                    <polygon points="50,94 43,86 57,86" fill="url(#bodGold)"/>
+                </svg>`,
+
+            dominance: `
+                <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-[0_0_8px_rgba(56,189,248,0.85)]">
+                    <defs>
+                        <linearGradient id="iceShield" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#e0f2fe"/>
+                            <stop offset="50%" stop-color="#0284c7"/>
+                            <stop offset="100%" stop-color="#1e3a8a"/>
+                        </linearGradient>
+                    </defs>
+                    <!-- Duri Es Samping -->
+                    <polygon points="15,35 28,28 28,48" fill="#7dd3fc"/>
+                    <polygon points="85,35 72,28 72,48" fill="#7dd3fc"/>
+                    <polygon points="50,8 42,22 58,22" fill="#bae6fd"/>
+                    <!-- Badan Perisai Kristal -->
+                    <path d="M24 24 L50 16 L76 24 L72 62 C70 76 50 90 50 90 C50 90 30 76 28 62 Z" fill="url(#iceShield)" stroke="#bae6fd" stroke-width="2.5"/>
+                    <!-- Inti Kristal Tengah -->
+                    <polygon points="50,30 62,48 50,72 38,48" fill="#38bdf8" stroke="#ffffff" stroke-width="1.5"/>
+                    <polygon points="50,36 56,48 50,64 44,48" fill="#e0f2fe"/>
+                </svg>`,
+
+            holy_crystal: `
+                <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-[0_0_10px_rgba(192,132,252,0.9)]">
+                    <defs>
+                        <linearGradient id="crystalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#f3e8ff"/>
+                            <stop offset="45%" stop-color="#a855f7"/>
+                            <stop offset="100%" stop-color="#4c1d95"/>
+                        </linearGradient>
+                    </defs>
+                    <!-- Kristal Kecil Kiri & Kanan -->
+                    <polygon points="24,78 18,52 32,44 38,76" fill="#7e22ce" stroke="#d8b4fe" stroke-width="1.2"/>
+                    <polygon points="76,78 82,52 68,44 62,76" fill="#7e22ce" stroke="#d8b4fe" stroke-width="1.2"/>
+                    <!-- Kristal Utama Tengah -->
+                    <polygon points="50,12 68,35 63,84 37,84 32,35" fill="url(#crystalGrad)" stroke="#f5d0fe" stroke-width="2"/>
+                    <polygon points="50,12 58,35 50,76 42,35" fill="#e9d5ff" opacity="0.55"/>
+                    <!-- Kilau Bintang -->
+                    <circle cx="50" cy="38" r="4" fill="#ffffff"/>
+                </svg>`,
+
+            won: `
+                <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-[0_0_8px_rgba(52,211,153,0.85)]">
+                    <defs>
+                        <linearGradient id="windGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#fef08a"/>
+                            <stop offset="50%" stop-color="#10b981"/>
+                            <stop offset="100%" stop-color="#047857"/>
+                        </linearGradient>
+                    </defs>
+                    <!-- Busur Emas & Angin -->
+                    <path d="M28 20 C68 25 75 50 75 50 C75 50 68 75 28 80" fill="none" stroke="url(#windGrad)" stroke-width="6" stroke-linecap="round"/>
+                    <line x1="28" y1="20" x2="28" y2="80" stroke="#a7f3d0" stroke-width="1.5" stroke-dasharray="3,2"/>
+                    <!-- Anak Panah Angin -->
+                    <line x1="18" y1="50" x2="84" y2="50" stroke="#ecfdf5" stroke-width="3"/>
+                    <polygon points="88,50 74,42 78,50 74,58" fill="#6ee7b7"/>
+                    <!-- Pusaran Angin -->
+                    <path d="M40 34 Q58 38 52 50 Q58 62 40 66" fill="none" stroke="#a7f3d0" stroke-width="2"/>
+                </svg>`,
+
+            immortality: `
+                <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-[0_0_10px_rgba(251,191,36,0.9)]">
+                    <defs>
+                        <linearGradient id="goldShield" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#fef9c3"/>
+                            <stop offset="50%" stop-color="#f59e0b"/>
+                            <stop offset="100%" stop-color="#92400e"/>
+                        </linearGradient>
+                    </defs>
+                    <!-- Sayap Malaikat Kiri & Kanan -->
+                    <path d="M25 45 Q8 25 18 15 Q32 25 36 38 Z" fill="#fde68a"/>
+                    <path d="M75 45 Q92 25 82 15 Q68 25 64 38 Z" fill="#fde68a"/>
+                    <!-- Perisai Emas -->
+                    <path d="M28 28 L50 20 L72 28 L68 62 C66 75 50 86 50 86 C50 86 34 75 32 62 Z" fill="url(#goldShield)" stroke="#fef08a" stroke-width="2"/>
+                    <!-- Salib Cahaya Kebangkitan -->
+                    <rect x="46" y="34" width="8" height="36" rx="2" fill="#ffffff"/>
+                    <rect x="36" y="46" width="28" height="8" rx="2" fill="#ffffff"/>
+                </svg>`,
+
+            athena: `
+                <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-[0_0_8px_rgba(168,85,247,0.85)]">
+                    <defs>
+                        <linearGradient id="athenaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#f5d0fe"/>
+                            <stop offset="50%" stop-color="#9333ea"/>
+                            <stop offset="100%" stop-color="#3b0764"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M22 26 C35 16 65 16 78 26 L72 64 C68 78 50 88 50 88 C50 88 32 78 28 64 Z" fill="url(#athenaGrad)" stroke="#f0abfc" stroke-width="2.5"/>
+                    <circle cx="50" cy="48" r="14" fill="#1e1b4b" stroke="#fbbf24" stroke-width="2.5"/>
+                    <polygon points="50,38 56,48 50,58 44,48" fill="#e879f9"/>
+                </svg>`,
+
+            malefic: `
+                <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-[0_0_8px_rgba(239,68,68,0.85)]">
+                    <defs>
+                        <linearGradient id="gunGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#fca5a5"/>
+                            <stop offset="50%" stop-color="#dc2626"/>
+                            <stop offset="100%" stop-color="#7f1d1d"/>
+                        </linearGradient>
+                    </defs>
+                    <!-- Laras Meriam Naga -->
+                    <polygon points="22,62 72,22 84,34 34,74" fill="url(#gunGrad)" stroke="#fef08a" stroke-width="2"/>
+                    <circle cx="78" cy="28" r="9" fill="#fbbf24" stroke="#7f1d1d" stroke-width="2"/>
+                    <circle cx="78" cy="28" r="4" fill="#111827"/>
+                    <rect x="20" y="64" width="14" height="18" rx="3" transform="rotate(-35 20 64)" fill="#b45309"/>
+                </svg>`,
+
+            divine_glaive: `
+                <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-[0_0_8px_rgba(59,130,246,0.85)]">
+                    <polygon points="22,78 72,28 82,18 72,38 32,82" fill="#60a5fa" stroke="#dbeafe" stroke-width="2"/>
+                    <polygon points="58,22 82,18 78,42 66,34" fill="#f59e0b" stroke="#fef08a" stroke-width="1.5"/>
+                    <circle cx="68" cy="32" r="5" fill="#38bdf8"/>
+                </svg>`,
+
+            sea_halberd: `
+                <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-[0_0_8px_rgba(249,115,22,0.85)]">
+                    <line x1="22" y1="80" x2="76" y2="26" stroke="#fdba74" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M58 24 L84 16 L76 42 L66 34 Z" fill="#ef4444" stroke="#fef08a" stroke-width="1.5"/>
+                    <path d="M48 32 Q62 18 76 26" fill="none" stroke="#fb923c" stroke-width="4"/>
+                </svg>`,
+
+            dhs: `
+                <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-[0_0_8px_rgba(234,179,8,0.85)]">
+                    <path d="M25 75 L72 20 L80 28 L35 80 Z" fill="#fbbf24" stroke="#fef9c3" stroke-width="1.5"/>
+                    <path d="M42 48 L56 34 L62 40 L48 54 Z" fill="#ef4444"/>
+                    <rect x="22" y="68" width="18" height="6" rx="2" transform="rotate(45 22 68)" fill="#92400e"/>
+                </svg>`,
+
+            tough_boots: `
+                <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-[0_0_8px_rgba(96,165,250,0.8)]">
+                    <path d="M34 22 L56 22 L56 54 L78 62 L78 76 L30 76 L30 48 Z" fill="#2563eb" stroke="#93c5fd" stroke-width="2.5" stroke-linejoin="round"/>
+                    <rect x="32" y="22" width="26" height="8" fill="#fbbf24"/>
+                    <path d="M56 44 L70 38 L64 50" fill="none" stroke="#fde047" stroke-width="2.5"/>
+                </svg>`,
+
+            antique: `
+                <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-[0_0_8px_rgba(245,158,11,0.8)]">
+                    <path d="M26 26 L42 20 L50 28 L58 20 L74 26 L78 52 L66 78 L34 78 L22 52 Z" fill="#b45309" stroke="#fcd34d" stroke-width="2.5"/>
+                    <path d="M38 36 L50 48 L62 36 L58 66 L42 66 Z" fill="#78350f" stroke="#fbbf24" stroke-width="1.5"/>
+                </svg>`,
+
+            // --- HERO PORTRAIT SVG (IKONIK MLBB) ---
+            hero_tank: `
+                <svg viewBox="0 0 100 100" class="w-full h-full">
+                    <defs>
+                        <linearGradient id="tigArmor" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#1e3a8a"/>
+                        </linearGradient>
+                    </defs>
+                    <circle cx="50" cy="50" r="46" fill="#0f172a"/>
+                    <!-- Bahu Zirah Besar -->
+                    <path d="M12 82 Q22 52 50 54 Q78 52 88 82 Z" fill="url(#tigArmor)" stroke="#fbbf24" stroke-width="2.5"/>
+                    <!-- Kepala & Rambut Perak -->
+                    <circle cx="50" cy="38" r="16" fill="#fed7aa"/>
+                    <path d="M32 36 Q34 16 50 18 Q66 16 68 36 Q58 26 50 28 Q42 26 32 36 Z" fill="#e2e8f0"/>
+                    <!-- Simbol Perisai Emas di Dada -->
+                    <polygon points="50,60 60,68 50,82 40,68" fill="#f59e0b" stroke="#fef08a" stroke-width="1.5"/>
+                </svg>`,
+
+            hero_fighter: `
+                <svg viewBox="0 0 100 100" class="w-full h-full">
+                    <circle cx="50" cy="50" r="46" fill="#18122b"/>
+                    <!-- Mantel Merah -->
+                    <path d="M16 85 L30 54 L70 54 L84 85 Z" fill="#991b1b" stroke="#f59e0b" stroke-width="2"/>
+                    <!-- Kepala & Rambut Pirang -->
+                    <circle cx="50" cy="38" r="15" fill="#fde68a"/>
+                    <path d="M32 38 L36 16 L46 24 L52 14 L60 24 L68 18 L66 38 Z" fill="#facc15"/>
+                    <!-- Pedang Biru di Belakang -->
+                    <polygon points="74,16 82,22 56,64 48,58" fill="#38bdf8" stroke="#e0f2fe" stroke-width="1.5"/>
+                </svg>`,
+
+            hero_assassin: `
+                <svg viewBox="0 0 100 100" class="w-full h-full">
+                    <circle cx="50" cy="50" r="46" fill="#091526"/>
+                    <!-- Kerah Tinggi Assassin -->
+                    <path d="M20 85 L32 52 L50 62 L68 52 L80 85 Z" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+                    <!-- Rambut Coklat Tajam & Mata Biru Neon -->
+                    <circle cx="50" cy="39" r="15" fill="#fed7aa"/>
+                    <path d="M31 38 L35 18 L48 25 L56 15 L69 36 Z" fill="#7c2d12"/>
+                    <circle cx="44" cy="40" r="2.2" fill="#00d2ff"/>
+                    <circle cx="56" cy="40" r="2.2" fill="#00d2ff"/>
+                    <!-- Belati Cahaya -->
+                    <polygon points="22,36 34,48 24,56" fill="#38bdf8"/>
+                    <polygon points="78,36 66,48 76,56" fill="#38bdf8"/>
+                </svg>`,
+
+            hero_mage: `
+                <svg viewBox="0 0 100 100" class="w-full h-full">
+                    <circle cx="50" cy="50" r="46" fill="#1e1035"/>
+                    <!-- Payung Sihir Seimei di Belakang -->
+                    <path d="M18 36 Q50 8 82 36 Z" fill="#7e22ce" stroke="#f0abfc" stroke-width="2"/>
+                    <!-- Kimono Biru Ungu -->
+                    <path d="M24 85 L36 55 L64 55 L76 85 Z" fill="#3b82f6" stroke="#fde047" stroke-width="1.5"/>
+                    <!-- Wajah & Rambut Putih -->
+                    <circle cx="50" cy="42" r="14" fill="#ffedd5"/>
+                    <path d="M34 42 Q36 24 50 24 Q64 24 66 42 Z" fill="#f8fafc"/>
+                    <circle cx="33" cy="38" r="4" fill="#f43f5e"/>
+                    <circle cx="67" cy="38" r="4" fill="#f43f5e"/>
+                </svg>`,
+
+            hero_mm: `
+                <svg viewBox="0 0 100 100" class="w-full h-full">
+                    <circle cx="50" cy="50" r="46" fill="#0c192c"/>
+                    <!-- Pakaian Penembak -->
+                    <path d="M22 85 L34 55 L66 55 L78 85 Z" fill="#0284c7" stroke="#fbbf24" stroke-width="2"/>
+                    <!-- Kuncir Dua (Twin Tails) Pirang -->
+                    <path d="M34 34 Q16 44 20 68" fill="none" stroke="#facc15" stroke-width="7" stroke-linecap="round"/>
+                    <path d="M66 34 Q84 44 80 68" fill="none" stroke="#facc15" stroke-width="7" stroke-linecap="round"/>
+                    <circle cx="50" cy="40" r="14" fill="#fed7aa"/>
+                    <path d="M35 38 Q50 22 65 38 Z" fill="#fef08a"/>
+                </svg>`,
+
+            hero_support: `
+                <svg viewBox="0 0 100 100" class="w-full h-full">
+                    <circle cx="50" cy="50" r="46" fill="#1f122b"/>
+                    <!-- Benang Boneka Emas -->
+                    <path d="M25 20 Q50 35 75 20" fill="none" stroke="#fde047" stroke-width="1.5" stroke-dasharray="3,2"/>
+                    <path d="M24 85 L36 55 L64 55 L76 85 Z" fill="#ec4899" stroke="#fbcfe8" stroke-width="2"/>
+                    <circle cx="50" cy="40" r="14" fill="#ffedd5"/>
+                    <path d="M34 40 Q38 22 50 22 Q62 22 66 40 Z" fill="#fda4af"/>
+                    <polygon points="50,62 56,68 50,74 44,68" fill="#fef08a"/>
+                </svg>`
+        };
+
+        // =========================================================================
+        // 2. DATA PANDUAN ROLE HERO
+        // =========================================================================
+        const HERO_ROLES = [
+            {
+                role: 'Tank',
+                exampleHero: 'Tigreal / Atlas',
+                lane: 'Roamer (Bantu Semua Lane)',
+                svgKey: 'hero_tank',
+                badgeColor: 'text-blue-400 border-blue-400/40 bg-blue-500/10',
+                summary: 'Garda terdepan pembuka peperangan (Initiator) dan pelindung utama hero core tim.',
+                howToPlay: [
+                    'Jangan diam di satu lane! Keliling membuka map (open bush) agar Core tidak kena gank.',
+                    'Simpan skill Crowd Control (Stun/Flicker) untuk mengunci Assassin musuh yang mengincar Marksman kita.',
+                    'Beli item Roam (Conceal atau Dire Hit) sejak detik pertama pertandingan.'
+                ],
+                mistake: 'Terlalu maju sendirian saat rekan tim masih jauh di belakang sehingga mati sia-sia.'
+            },
+            {
+                role: 'Fighter',
+                exampleHero: 'Alucard / Yu Zhong / Terizla',
+                lane: 'EXP Lane',
+                svgKey: 'hero_fighter',
+                badgeColor: 'text-amber-400 border-amber-400/40 bg-amber-500/10',
+                summary: 'Petarung jarak dekat dengan keseimbangan antara damage tinggi dan ketahanan (Spell Vamp/Defense).',
+                howToPlay: [
+                    'Fokus cepat mencapai Level 4 sebelum Turtle pertama muncul di menit ke-2.',
+                    'Saat teamfight, incar lini belakang musuh (Mage/Marksman) dari arah samping (flanking).',
+                    'Gunakan kombinasi 2-3 item damage dan sisanya item defense agar tidak mudah tumbang.'
+                ],
+                mistake: 'Membuat full item damage pada Fighter garis depan sehingga langsung mati terkena stun.'
+            },
+            {
+                role: 'Assassin',
+                exampleHero: 'Gusion / Lancelot / Hayabusa',
+                lane: 'Jungler',
+                svgKey: 'hero_assassin',
+                badgeColor: 'text-cyan-400 border-cyan-400/40 bg-cyan-500/10',
+                summary: 'Eksekutor lincah ber-damage ledak (Burst) untuk menculik hero tipis lawan dan mengamankan objektif.',
+                howToPlay: [
+                    'Ambil Buff Ungu & Oranye secepat mungkin, lalu rotasi ke Gold Lane untuk membantu Marksman.',
+                    'Masuk ke dalam war TERAKHIR setelah skill stun/ultimate musuh keluar.',
+                    'Selalu sisakan Retribution saat HP Turtle atau Lord berada di bawah 2000.'
+                ],
+                mistake: 'Menyerang Tank musuh di garis depan daripada mengincar Marksman/Mage lawan.'
+            },
+            {
+                role: 'Mage',
+                exampleHero: 'Kagura / Valentina / Eudora',
+                lane: 'Mid Lane',
+                svgKey: 'hero_mage',
+                badgeColor: 'text-purple-400 border-purple-400/40 bg-purple-500/10',
+                summary: 'Pengendali area pertempuran dengan serangan Magic jarak jauh dan efek Crowd Control mematikan.',
+                howToPlay: [
+                    'Bersihkan minion Mid Lane secepat mungkin, lalu segera bantu rotasi ke Gold Lane atau EXP Lane.',
+                    'Bersembunyi di semak-semak (bush) jalur rotasi musuh untuk melakukan serangan kejutan (ambush).',
+                    'Jaga jarak aman dan manfaatkan posisi di belakang Tank.'
+                ],
+                mistake: 'Diam terus di Mid Lane tanpa membantu lane samping saat minion sudah habis.'
+            },
+            {
+                role: 'Marksman',
+                exampleHero: 'Layla / Beatrix / Claude',
+                lane: 'Gold Lane',
+                svgKey: 'hero_mm',
+                badgeColor: 'text-yellow-400 border-yellow-400/40 bg-yellow-500/10',
+                summary: 'Penghasil DPS (Damage Per Second) terbesar di Late Game sekaligus penghancur turret tercepat.',
+                howToPlay: [
+                    'Di 5 menit pertama (Early Game), main aman! Fokus last-hit minion dengan gerobak emas.',
+                    'Selalu perhatikan mini-map; jika Midlaner musuh hilang, segera mundur ke dalam turret.',
+                    'Saat war Late Game, tembak target terdekat yang paling aman dijangkau tanpa memaksakan diri maju.'
+                ],
+                mistake: 'Berjalan sendirian melewati sungai tanpa visi Tank saat memasuki menit ke-10 ke atas.'
+            },
+            {
+                role: 'Support',
+                exampleHero: 'Angela / Estes / Mathilda',
+                lane: 'Roamer',
+                svgKey: 'hero_support',
+                badgeColor: 'text-pink-400 border-pink-400/40 bg-pink-500/10',
+                summary: 'Penyembuh (Healer), pemberi shield, dan peningkat kecepatan gerak seluruh anggota tim.',
+                howToPlay: [
+                    'Tempel terus hero Jungler atau Marksman yang sedang memimpin perolehan gold (snowball).',
+                    'Gunakan item Roam Favor (untuk healer) dan beli item pengurang Cooldown (Fleeting Time / Enchanted Talisman).',
+                    'Posisikan diri di garis belakang agar tidak terculik lebih dulu sebelum sempat mengeluarkan heal.'
+                ],
+                mistake: 'Membuat build full Magic Damage tanpa item defense sehingga mati hanya dalam 1 combo musuh.'
+            }
+        ];
+
+        // =========================================================================
+        // 3. DATA ENSIKLOPEDIA ITEM MLBB
+        // =========================================================================
+        const MLBB_ITEMS = [
+            {
+                id: 'bod',
+                name: 'Blade of Despair',
+                category: 'Attack',
+                price: '3010 Gold',
+                svgKey: 'bod',
+                stats: '+160 Physical Attack • +5% Movement Speed',
+                passive: 'Despair: Menyerang unit lawan dengan HP di bawah 50% akan meningkatkan Physical Attack sebesar 25% selama 2 detik.',
+                whenToBuy: 'Beli sebagai item ke-3 atau ke-4 pada Assassin dan Marksman saat kamu unggul gold untuk mempercepat eksekusi musuh.'
+            },
+            {
+                id: 'malefic',
+                name: 'Malefic Roar',
+                category: 'Attack',
+                price: '2060 Gold',
+                svgKey: 'malefic',
+                stats: '+60 Physical Attack • +20% Physical Penetration',
+                passive: 'Armor Buster: Setiap poin Physical Defense musuh meningkatkan Physical Penetration pengguna hingga maksimal 20%.',
+                whenToBuy: 'Wajib dibeli di Mid-Late Game saat Tank/Fighter musuh mulai menumpuk item Armor (Blade Armor / Antique Cuirass).'
+            },
+            {
+                id: 'won',
+                name: 'Wind of Nature',
+                category: 'Attack',
+                price: '1910 Gold',
+                svgKey: 'won',
+                stats: '+30 Physical Attack • +20% Attack Speed • +10% Lifesteal',
+                passive: 'Skill Aktif - Wind Chant: Kebal terhadap SEMUA Physical Damage selama 2 detik (durasi berkurang setengah jika dipakai non-Marksman).',
+                whenToBuy: 'Item penyelamat nyawa Marksman saat melawan Assassin Physical (Ling, Lancelot, Hayabusa) atau adu tembak sesama MM.'
+            },
+            {
+                id: 'sea_halberd',
+                name: 'Sea Halberd',
+                category: 'Attack',
+                price: '2050 Gold',
+                svgKey: 'sea_halberd',
+                stats: '+80 Physical Attack • +20% Attack Speed',
+                passive: 'Lifebane: Mengurangi efek Shield dan HP Regen lawan sebesar 50% selama 3 detik. Juga menambah 8% damage ke hero dengan HP lebih tinggi.',
+                whenToBuy: 'Beli sejak item ke-2 jika musuh memiliki healer (Estes/Floryn) atau Fighter regen deras (Yu Zhong/Ruby).'
+            },
+            {
+                id: 'dhs',
+                name: 'Demon Hunter Sword',
+                category: 'Attack',
+                price: '2180 Gold',
+                svgKey: 'dhs',
+                stats: '+35 Physical Attack • +20% Attack Speed',
+                passive: 'Devour: Basic Attack memberikan damage tambahan sebesar 8% dari sisa HP target saat ini, serta memberikan Lifesteal.',
+                whenToBuy: 'Senjata wajib hero Attack Speed (Claude, Miya, Badang, Sun) untuk merontokkan Tank berdarah super tebal.'
+            },
+            {
+                id: 'holy_crystal',
+                name: 'Holy Crystal',
+                category: 'Magic',
+                price: '3000 Gold',
+                svgKey: 'holy_crystal',
+                stats: '+185 Magic Power',
+                passive: 'Mystery: Meningkatkan Magic Attack sebesar 21% hingga 35% (meningkat seiring level hero).',
+                whenToBuy: 'Item peningkat damage terbesar bagi Mage Burst (Kagura, Eudora, Pharsa, Vale) di pertengahan hingga akhir game.'
+            },
+            {
+                id: 'divine_glaive',
+                name: 'Divine Glaive',
+                category: 'Magic',
+                price: '1970 Gold',
+                svgKey: 'divine_glaive',
+                stats: '+60 Magic Power • +40% Magic Penetration',
+                passive: 'Spellbreaker: Setiap poin Magic Defense lawan meningkatkan Magic Penetration hingga maksimal 20%.',
+                whenToBuy: 'Wajib dibeli oleh Mage ketika lawan mulai membeli Athena\'s Shield atau Radiant Armor.'
+            },
+            {
+                id: 'dominance',
+                name: 'Dominance Ice',
+                category: 'Defense',
+                price: '2010 Gold',
+                svgKey: 'dominance',
+                stats: '+500 Mana • +55 Physical Defense • +5% Movement Speed',
+                passive: 'Arctic Cold & Lifebane: Menurunkan Attack Speed lawan di sekitar sebesar 70% dan mengurangi efek Shield/HP Regen musuh sebesar 50%.',
+                whenToBuy: 'Item paling wajib untuk Tank dan Fighter! Counter telak bagi Marksman Attack Speed maupun hero lifesteal.'
+            },
+            {
+                id: 'athena',
+                name: "Athena's Shield",
+                category: 'Defense',
+                price: '2150 Gold',
+                svgKey: 'athena',
+                stats: '+900 HP • +48 Magic Defense • +2 HP Regen',
+                passive: 'Shield: Saat menerima Magic Damage, mengurangi seluruh Magic Damage yang masuk sebesar 25% selama 3 detik.',
+                whenToBuy: 'Counter terbaik untuk Mage tipe sekali combo mati (Eudora, Kadita, Kagura, Vale).'
+            },
+            {
+                id: 'antique',
+                name: 'Antique Cuirass',
+                category: 'Defense',
+                price: '2170 Gold',
+                svgKey: 'antique',
+                stats: '+920 HP • +40 Physical Defense • +4 HP Regen',
+                passive: 'Deter: Ketika terkena skill lawan, mengurangi Physical Attack penyerang sebesar 6% selama 2 detik (bisa ditumpuk hingga 3 kali).',
+                whenToBuy: 'Sangat efektif meredam damage Assassin dan Fighter berbasis skill (Lancelot, Fanny, Saber, Terizla).'
+            },
+            {
+                id: 'immortality',
+                name: 'Immortality',
+                category: 'Defense',
+                price: '2120 Gold',
+                svgKey: 'immortality',
+                stats: '+800 HP • +15 Physical Defense',
+                passive: 'Immortal: Menghidupkan kembali hero 2.5 detik setelah mati dengan 16% HP dan Shield pelindung (Cooldown 210 detik).',
+                whenToBuy: 'Wajib dibeli semua role (termasuk MM & Assassin) saat memasuki Late Game menit ke-15 ke atas.'
+            },
+            {
+                id: 'tough_boots',
+                name: 'Tough Boots',
+                category: 'Movement',
+                price: '700 Gold',
+                svgKey: 'tough_boots',
+                stats: '+40 Movement Speed • +22 Magic Defense',
+                passive: 'Fortitude: Mengurangi durasi efek Crowd Control (Stun, Slow, Freeze) sebesar 30%.',
+                whenToBuy: 'Sepatu terbaik untuk 80% pertandingan, terutama jika musuh memiliki banyak efek stun seperti Tigreal, Franco, atau Selena.'
+            }
+        ];
+
+        // =========================================================================
+        // 4. DATA SIMULATOR COUNTER ITEM
+        // =========================================================================
+        const SCENARIOS = {
+            regen: {
+                title: 'Strategi Melawan Musuh Deras Regen / Lifesteal',
+                desc: 'Hero seperti Estes, Alucard, Yu Zhong, dan Uranus sangat bergantung pada pemulihan HP saat war. Kamu wajib memotong pemulihan mereka hingga 50% menggunakan item Lifebane.',
+                recommended: ['dominance', 'sea_halberd'],
+                tip: 'Cukup 1-2 orang di tim yang membeli item Anti-Heal karena efek pasif Lifebane tidak bertumpuk (non-stackable). Tank wajib beli Dominance Ice!'
+            },
+            burst_magic: {
+                title: 'Strategi Bertahan dari Mage Full Burst',
+                desc: 'Mage seperti Eudora, Kadita, dan Kagura mengandalkan satu kali rangkaian combo skill untuk membunuhmu dalam sekejap.',
+                recommended: ['athena', 'tough_boots'],
+                tip: 'Pasif Athena\'s Shield langsung memotong 25% total Magic Damage yang masuk selama 3 detik pertama, membuatmu selamat dari combo sekali mati.'
+            },
+            tank_tebal: {
+                title: 'Strategi Menembus Tank & Fighter Berdarah Tebal',
+                desc: 'Saat musuh memiliki 2-3 hero tebal dengan tumpukan armor tinggi, item attack biasa tidak akan terasa sakit tanpa Penetration.',
+                recommended: ['malefic', 'divine_glaive', 'dhs'],
+                tip: 'Gunakan Malefic Roar (untuk hero Physical) atau Divine Glaive (untuk hero Mage) di slot ke-4 atau ke-5 agar armor musuh ditembus hingga 40%.'
+            },
+            assassin_crit: {
+                title: 'Strategi Selamat dari Incaran Assassin & MM Sakit',
+                desc: 'Marksman sangat rentan diculik oleh Ling, Lancelot, atau Hayabusa di Late Game. Jangan ragu mengorbankan 1 slot damage demi item bertahan.',
+                recommended: ['won', 'antique', 'immortality'],
+                tip: 'Latih refleks menekan tombol aktif Wind of Nature tepat saat Assassin musuh melompat ke arahmu, lalu balas tembak balik!'
+            }
+        };
+
+        // =========================================================================
+        // 5. DATA REKOMENDASI SUSUNAN 6 BUILD ITEM
+        // =========================================================================
+        const RECOMMENDED_BUILDS = [
+            {
+                title: 'Build Tank Roamer Tebal & Anti-Heal',
+                subtitle: 'Cocok untuk: Tigreal, Atlas, Khufra, Hylos',
+                badge: 'SUSTAIN & UTILITY',
+                items: ['tough_boots', 'dominance', 'athena', 'antique', 'immortality', 'dominance'],
+                itemNames: ['Tough Boots (Conceal)', 'Dominance Ice', "Athena's Shield", 'Antique Cuirass', 'Immortality', 'Situational Armor'],
+                explanation: 'Susunan ini membuat Tank kebal terhadap serangan fisik maupun magic sekaligus mengurangi kecepatan serang dan lifesteal musuh di sekitar.'
+            },
+            {
+                title: 'Build Marksman Attack Speed (Penghancur Tank)',
+                subtitle: 'Cocok untuk: Claude, Miya, Moskov, Karrie',
+                badge: 'HIGH DPS',
+                items: ['tough_boots', 'dhs', 'sea_halberd', 'malefic', 'won', 'immortality'],
+                itemNames: ['Tough Boots', 'Demon Hunter Sword', 'Sea Halberd', 'Malefic Roar', 'Wind of Nature', 'Immortality'],
+                explanation: 'Kombinasi DHS dan Malefic Roar membuat setiap tembakan cepat memotong persentase HP dan armor Tank lawan, dilengkapi Wind of Nature untuk bertahan hidup.'
+            },
+            {
+                title: 'Build Mage Burst Sekali Combo',
+                subtitle: 'Cocok untuk: Kagura, Eudora, Vale, Pharsa',
+                badge: 'MAGIC BURST',
+                items: ['tough_boots', 'holy_crystal', 'divine_glaive', 'immortality', 'holy_crystal', 'divine_glaive'],
+                itemNames: ['Arcane/Tough Boots', 'Clock / Lighting', 'Holy Crystal', 'Divine Glaive', 'Blood Wings', 'Immortality'],
+                explanation: 'Fokus memaksimalkan total Magic Power lewat Holy Crystal dan menembus Magic Defense lawan menggunakan Divine Glaive di Mid-Late game.'
+            },
+            {
+                title: 'Build Assassin Jungle Eksekutor',
+                subtitle: 'Cocok untuk: Lancelot, Hayabusa, Nolan, Fanny',
+                badge: 'BURST & PENETRATION',
+                items: ['tough_boots', 'sea_halberd', 'bod', 'malefic', 'immortality', 'antique'],
+                itemNames: ['Tough Boots (Ice Retri)', 'Hunter Strike', 'Sea Halberd', 'Blade of Despair', 'Malefic Roar', 'Immortality'],
+                explanation: 'Memaksimalkan Physical Penetration dan damage ledak dari Blade of Despair agar target tipis di lini belakang tewas dalam hitungan detik.'
+            }
+        ];
+
+        // =========================================================================
+        // 6. FUNGSI RENDER & INTERAKTIVITAS UI
+        // =========================================================================
+
+        // Render Kartu Role Hero
+        function renderHeroes(filter = 'ALL') {
+            const grid = document.getElementById('heroes-grid');
+            const filtered = filter === 'ALL' ? HERO_ROLES : HERO_ROLES.filter(h => h.role === filter);
+
+            grid.innerHTML = filtered.map(h => `
+                <div class="mlbb-frame mlbb-corner rounded-2xl p-6 flex flex-col justify-between group cursor-pointer" onclick="openHeroModal('${h.role}')">
+                    <div>
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-16 h-16 rounded-full border-2 border-mlbb-gold p-0.5 shadow-lg shadow-mlbb-gold/20 shrink-0 overflow-hidden bg-slate-900">
+                                ${SVG_ICONS[h.svgKey]}
+                            </div>
+                            <div>
+                                <span class="inline-block px-2.5 py-0.5 rounded-md border text-[11px] font-gaming font-bold uppercase tracking-wider ${h.badgeColor}">
+                                    ${h.role}
+                                </span>
+                                <h3 class="font-gaming font-bold text-xl text-white mt-1 group-hover:text-mlbb-gold transition">
+                                    ${h.exampleHero}
+                                </h3>
+                                <p class="text-xs text-gray-400">📍 ${h.lane}</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-300 leading-relaxed mb-4">
+                            ${h.summary}
+                        </p>
+                        <div class="space-y-2 border-t border-white/10 pt-3">
+                            <div class="text-xs font-gaming font-bold uppercase tracking-wider text-mlbb-blue">Tips Utama Bermain:</div>
+                            <p class="text-xs text-gray-300 leading-relaxed">• ${h.howToPlay[0]}</p>
+                        </div>
+                    </div>
+                    <div class="mt-5 pt-3 border-t border-white/5 flex items-center justify-between text-xs font-gaming font-bold text-mlbb-gold uppercase tracking-wider">
+                        <span>Lihat Panduan Lengkap</span>
+                        <span class="group-hover:translate-x-1 transition">→</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterRoles(role) {
+            document.querySelectorAll('.role-btn').forEach(btn => {
+                btn.classList.remove('bg-mlbb-gold', 'text-mlbb-dark', 'shadow-md');
+                btn.classList.add('bg-white/5', 'text-gray-300');
+            });
+            event.currentTarget.classList.remove('bg-white/5', 'text-gray-300');
+            event.currentTarget.classList.add('bg-mlbb-gold', 'text-mlbb-dark', 'shadow-md');
+            renderHeroes(role);
+        }
+
+        // Render Kartu Item MLBB
+        function renderItems(category = 'ALL') {
+            const grid = document.getElementById('items-grid');
+            const filtered = category === 'ALL' ? MLBB_ITEMS : MLBB_ITEMS.filter(i => i.category === category);
+
+            grid.innerHTML = filtered.map(item => `
+                <div onclick="openItemModal('${item.id}')" class="mlbb-frame rounded-2xl p-4 sm:p-5 text-center group cursor-pointer flex flex-col justify-between">
+                    <div>
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-3 item-icon-wrapper p-2.5">
+                            ${SVG_ICONS[item.svgKey]}
+                        </div>
+                        <span class="text-[10px] font-gaming font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-white/5 text-mlbb-blue">
+                            ${item.category}
+                        </span>
+                        <h3 class="font-gaming font-bold text-base sm:text-lg text-white mt-1.5 group-hover:text-mlbb-gold transition">
+                            ${item.name}
+                        </h3>
+                        <div class="text-[11px] text-amber-400 font-semibold mt-0.5">${item.price}</div>
+                        <p class="text-xs text-emerald-400 mt-2 line-clamp-1">${item.stats}</p>
+                    </div>
+                    <div class="mt-4 pt-2.5 border-t border-white/10 text-[11px] font-gaming font-bold text-gray-400 group-hover:text-mlbb-gold uppercase tracking-wider">
+                        Klik Detail Pasif
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterItems(category) {
+            document.querySelectorAll('.item-btn').forEach(btn => {
+                btn.classList.remove('bg-mlbb-blue', 'text-mlbb-dark', 'shadow');
+                btn.classList.add('bg-white/5', 'text-gray-300');
+            });
+            event.currentTarget.classList.remove('bg-white/5', 'text-gray-300');
+            event.currentTarget.classList.add('bg-mlbb-blue', 'text-mlbb-dark', 'shadow');
+            renderItems(category);
+        }
+
+        // Render Simulator Counter
+        function selectScenario(key) {
+            document.querySelectorAll('.scen-btn').forEach(btn => {
+                btn.classList.remove('border-mlbb-gold', 'bg-mlbb-gold/15');
+                btn.classList.add('border-white/10', 'bg-white/5');
+            });
+            const activeBtn = document.querySelector(`.scen-btn[data-scen="${key}"]`);
+            if (activeBtn) {
+                activeBtn.classList.remove('border-white/10', 'bg-white/5');
+                activeBtn.classList.add('border-mlbb-gold', 'bg-mlbb-gold/15');
+            }
+
+            const scen = SCENARIOS[key];
+            const recItems = scen.recommended.map(id => MLBB_ITEMS.find(i => i.id === id)).filter(Boolean);
+
+            document.getElementById('scenario-result').innerHTML = `
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                    <div class="lg:col-span-7">
+                        <h3 class="font-gaming font-bold text-2xl text-mlbb-gold mb-2">${scen.title}</h3>
+                        <p class="text-sm text-gray-300 leading-relaxed mb-4">${scen.desc}</p>
+                        <div class="p-3.5 rounded-xl bg-mlbb-blue/10 border border-mlbb-blue/30 text-xs text-blue-200 leading-relaxed">
+                            💡 <strong>Pro Tip:</strong> ${scen.tip}
+                        </div>
+                    </div>
+                    <div class="lg:col-span-5">
+                        <div class="text-xs font-gaming font-bold uppercase tracking-wider text-gray-400 mb-3 text-center lg:text-left">
+                            Item Wajib Dibeli (Klik untuk Detail):
+                        </div>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                            ${recItems.map(item => `
+                                <div onclick="openItemModal('${item.id}')" class="p-3 rounded-xl bg-slate-900/90 border border-mlbb-gold/40 hover:border-mlbb-gold text-center cursor-pointer group transition">
+                                    <div class="w-14 h-14 mx-auto mb-2 item-icon-wrapper p-2">
+                                        ${SVG_ICONS[item.svgKey]}
+                                    </div>
+                                    <div class="font-gaming font-bold text-xs text-white group-hover:text-mlbb-gold leading-tight">${item.name}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render Rekomendasi Susunan 6 Build
+        function renderBuilds() {
+            const container = document.getElementById('builds-container');
+            container.innerHTML = RECOMMENDED_BUILDS.map(b => `
+                <div class="mlbb-frame mlbb-corner rounded-2xl p-6">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                        <span class="px-2.5 py-0.5 rounded bg-purple-500/20 border border-purple-400/40 text-purple-300 font-gaming font-bold text-xs uppercase tracking-wider">
+                            ${b.badge}
+                        </span>
+                        <span class="text-xs text-mlbb-gold font-semibold">${b.subtitle}</span>
+                    </div>
+                    <h3 class="font-gaming font-bold text-2xl text-white mb-4">${b.title}</h3>
+                    
+                    <!-- 6 Slot Item Row -->
+                    <div class="grid grid-cols-3 sm:grid-cols-6 gap-2.5 my-5">
+                        ${b.items.map((itemId, idx) => {
+                            const itemObj = MLBB_ITEMS.find(i => i.id === itemId);
+                            return `
+                                <div onclick="openItemModal('${itemId}')" class="flex flex-col items-center text-center group cursor-pointer">
+                                    <div class="w-12 h-12 sm:w-14 sm:h-14 item-icon-wrapper p-2 mb-1.5">
+                                        ${SVG_ICONS[itemObj.svgKey]}
+                                    </div>
+                                    <span class="text-[10px] text-gray-300 group-hover:text-mlbb-gold leading-tight font-medium">
+                                        ${b.itemNames[idx]}
+                                    </span>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+
+                    <p class="text-xs sm:text-sm text-gray-300 leading-relaxed bg-black/30 p-3.5 rounded-xl border border-white/5">
+                        ${b.explanation}
+                    </p>
+                </div>
+            `).join('');
+        }
+
+        // =========================================================================
+        // 7. MODAL DETAIL POP-UP
+        // =========================================================================
+        function openItemModal(itemId) {
+            const item = MLBB_ITEMS.find(i => i.id === itemId);
+            if (!item) return;
+
+            document.getElementById('modal-content').innerHTML = `
+                <div class="flex items-center gap-4 mb-5">
+                    <div class="w-20 h-20 item-icon-wrapper p-3 shrink-0">
+                        ${SVG_ICONS[item.svgKey]}
+                    </div>
+                    <div>
+                        <span class="px-2.5 py-0.5 rounded bg-mlbb-blue/20 text-mlbb-blue font-gaming font-bold text-xs uppercase">
+                            ${item.category} • ${item.price}
+                        </span>
+                        <h3 class="font-gaming font-extrabold text-2xl sm:text-3xl text-mlbb-gold mt-1">${item.name}</h3>
+                        <p class="text-xs sm:text-sm text-emerald-400 font-semibold mt-0.5">${item.stats}</p>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div class="p-4 rounded-xl bg-white/5 border border-white/10">
+                        <div class="font-gaming font-bold text-sm uppercase tracking-wider text-mlbb-gold mb-1">Pasif / Skill Unik:</div>
+                        <p class="text-sm text-gray-200 leading-relaxed">${item.passive}</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-mlbb-blue/10 border border-mlbb-blue/30">
+                        <div class="font-gaming font-bold text-sm uppercase tracking-wider text-mlbb-blue mb-1">Kapan Harus Membeli Item Ini?</div>
+                        <p class="text-sm text-gray-200 leading-relaxed">${item.whenToBuy}</p>
+                    </div>
+                </div>
+            `;
+            showModal();
+        }
+
+        function openHeroModal(roleName) {
+            const hero = HERO_ROLES.find(h => h.role === roleName);
+            if (!hero) return;
+
+            document.getElementById('modal-content').innerHTML = `
+                <div class="flex items-center gap-4 mb-5">
+                    <div class="w-20 h-20 rounded-full border-2 border-mlbb-gold p-1 bg-slate-900 shrink-0 overflow-hidden">
+                        ${SVG_ICONS[hero.svgKey]}
+                    </div>
+                    <div>
+                        <span class="px-2.5 py-0.5 rounded border text-xs font-gaming font-bold uppercase ${hero.badgeColor}">
+                            Role: ${hero.role}
+                        </span>
+                        <h3 class="font-gaming font-extrabold text-2xl text-white mt-1">${hero.exampleHero}</h3>
+                        <p class="text-xs text-mlbb-gold font-semibold">Rekomendasi Lane: ${hero.lane}</p>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <div class="font-gaming font-bold text-sm uppercase tracking-wider text-mlbb-blue mb-2">Cara Bermain &amp; Rotasi:</div>
+                        <ul class="space-y-2 text-sm text-gray-200">
+                            ${hero.howToPlay.map(tip => `<li class="flex gap-2"><span class="text-mlbb-gold">✦</span><span>${tip}</span></li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="p-3.5 rounded-xl bg-red-500/10 border border-red-500/30">
+                        <div class="font-gaming font-bold text-xs uppercase tracking-wider text-red-400 mb-1">⚠️ Kesalahan Fatal Pemula:</div>
+                        <p class="text-xs sm:text-sm text-gray-200">${hero.mistake}</p>
+                    </div>
+                </div>
+            `;
+            showModal();
+        }
+
+        function showModal() {
+            const modal = document.getElementById('detail-modal');
+            const box = document.getElementById('modal-box');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                box.classList.remove('scale-95', 'opacity-0');
+                box.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('detail-modal');
+            const box = document.getElementById('modal-box');
+            box.classList.remove('scale-100', 'opacity-100');
+            box.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 200);
+        }
+
+        // Tutup modal jika klik area gelap luar
+        document.getElementById('detail-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        // =========================================================================
+        // 8. ANIMASI SHOWCASE HERO BANNER & SCROLL REVEAL
+        // =========================================================================
+        const SHOWCASE_IDS = ['bod', 'dominance', 'holy_crystal', 'won', 'immortality'];
+        let showcaseIdx = 0;
+
+        function updateShowcase() {
+            const item = MLBB_ITEMS.find(i => i.id === SHOWCASE_IDS[showcaseIdx]);
+            document.getElementById('hero-showcase-icon').innerHTML = SVG_ICONS[item.svgKey];
+            document.getElementById('hero-showcase-title').textContent = item.name;
+            document.getElementById('hero-showcase-stat').textContent = item.stats;
+            document.getElementById('hero-showcase-desc').textContent = item.passive;
+
+            document.getElementById('showcase-dots').innerHTML = SHOWCASE_IDS.map((_, idx) => `
+                <span class="h-1.5 rounded-full transition-all ${idx === showcaseIdx ? 'w-6 bg-mlbb-gold' : 'w-1.5 bg-white/20'}"></span>
+            `).join('');
+
+            showcaseIdx = (showcaseIdx + 1) % SHOWCASE_IDS.length;
+        }
+
+        // Scroll Reveal Observer
+        function initScrollReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+
+        // Inisialisasi saat halaman dimuat
+        window.addEventListener('DOMContentLoaded', () => {
+            renderHeroes('ALL');
+            renderItems('ALL');
+            selectScenario('regen');
+            renderBuilds();
+            updateShowcase();
+            setInterval(updateShowcase, 3500);
+            initScrollReveal();
+        });
+    </script>
+</body>
+</html>
